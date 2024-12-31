@@ -1,12 +1,20 @@
-"use client"
-import React, { useState } from 'react'
+'use client'
+import React, { useEffect, useState } from 'react'
 import CardDocument from './CardDocument'
 import ModalMain from './ModalMain'
-import styles from './HomeMain.module.css'
+import useStore from '../store/useStore'
+import { useSession } from 'next-auth/react'
 
 const HomeMain = () => {
   const [documentUrl, setDocumentUrl] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [usersFilters, setUsersFilters] = useState([])
+  const [selectedSubCategory, setSelectedSubCategory] = useState('')
+  const [activeGestion, setActiveGestion] = useState(null) // Estado para gestión activa
+
+  const { data: session } = useSession()
+  const dataRegistros = useStore((state) => state.dataRegistros)
+  const allGestionsData = useStore((state) => state.allGestionsData)
 
   const openDocument = (url) => {
     setDocumentUrl(url)
@@ -18,16 +26,100 @@ const HomeMain = () => {
     setIsModalOpen(false)
   }
 
-  return <div className={styles.container}>
-  <div className={styles.cardContainer}>
-      <CardDocument title="Preescolar" url="https://docs.google.com/document/d/1VlBEq8wZ-RIWKbeljX1oZsY7LjX3kITR2_VILJZzUqI/preview" onClick={openDocument}/>
-      <CardDocument title="Documento 2" url="https://docs.google.com/document/d/ID_DEL_DOCUMENTO_2/preview" onClick={openDocument} />
-      <CardDocument title="Documento 3" url="https://docs.google.com/document/d/ID_DEL_DOCUMENTO_3/preview" onClick={openDocument} />
-  </div>
+  useEffect(() => {
+    if (session) {
+      const filterUsers = dataRegistros.filter(
+        (user) =>
+          user.email === session.user.email &&
+          (selectedSubCategory === '' || user.selectedSubCategory === selectedSubCategory)
+      )
+      setUsersFilters(filterUsers)
+    }
+  }, [session, selectedSubCategory, dataRegistros])
 
-  <ModalMain show={isModalOpen} onClose={closeDocument} documentUrl={documentUrl} />
-</div>
-  
+  const handleGestionClick = (gestionId) => {
+    setActiveGestion((prev) => (prev === gestionId ? null : gestionId)) // Alterna entre mostrar u ocultar subcategorías
+  }
+
+  const handleSubCategoryClick = (componente) => {
+    setSelectedSubCategory(componente)
+    setActiveGestion(null) // Cierra el menú al seleccionar un componente
+  }
+
+  const resetFilters = () => {
+    setSelectedSubCategory('')
+    setActiveGestion(null)
+  }
+
+  return (
+    <div className="container mx-auto p-6">
+      <div className="mb-6">
+        <h2 className="text-lg font-bold mb-2">Filtros</h2>
+        <div className="flex flex-wrap gap-4">
+          {allGestionsData.map((gestion) => (
+            <div key={gestion._id} className="relative">
+              <button
+                className={`px-4 py-2 rounded ${
+                  activeGestion === gestion._id ? 'bg-blue-500 text-white' : 'bg-blue-100'
+                } hover:bg-blue-500 hover:text-white transition`}
+                onClick={() => handleGestionClick(gestion._id)}
+              >
+                {gestion.gestion}
+              </button>
+              {activeGestion === gestion._id && (
+                <div className="absolute mt-2 p-2 bg-gray-100 rounded shadow-lg z-10">
+                  {gestion.componentes.map((componente) => (
+                    <button
+                      key={componente}
+                      className={`block w-full text-left px-4 py-2 rounded ${
+                        selectedSubCategory === componente
+                          ? 'bg-blue-500 text-white'
+                          : 'hover:bg-blue-500 hover:text-white'
+                      } transition`}
+                      onClick={() => handleSubCategoryClick(componente)} // Cierra el menú
+                    >
+                      {componente}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+          {selectedSubCategory && (
+            <button
+              className="px-4 py-2 rounded bg-red-300 text-white hover:bg-red-600 transition"
+              onClick={resetFilters}
+            >
+              Limpiar Filtro
+            </button>
+          )}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {usersFilters.map((user) => (
+          <div
+            key={user._id}
+            className="bg-white shadow-lg rounded-lg p-4 hover:shadow-2xl transition-shadow duration-200"
+          >
+            <CardDocument
+              sede={user.sede}
+              jornada={user.jornada}
+              docente={user.docente}
+              title={user.selectedCategory}
+              subtitle={user.selectedSubCategory}
+              url={`https://drive.google.com/file/d/${user.linkFileId}/preview`}
+              onClick={openDocument}
+              grado={user.grado}
+              grupo={user.grupo}
+            />
+          </div>
+        ))}
+      </div>
+
+      <ModalMain show={isModalOpen} onClose={closeDocument} documentUrl={documentUrl} />
+    </div>
+  )
 }
 
 export default HomeMain
