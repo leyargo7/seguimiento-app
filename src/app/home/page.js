@@ -4,24 +4,26 @@ import Link from 'next/link'
 import { signOut, useSession } from 'next-auth/react'
 import { MdOutlineLogout } from 'react-icons/md'
 import useStore from '../../store/useStore'
-import { useEffect } from 'react'
+import { use, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 const HomePage = () => {
 
   const { data: session } = useSession()
+  const router = useRouter()
 
-  // const dataRegistros = useStore((state) => state.dataRegistros)
-  // const allSedesData = useStore((state) => state.allSedesData)
-  // const allGestionsData = useStore((state) => state.allGestionsData)
-  // const allGradosData = useStore((state) => state.allGradosData)
-  // const allGruposData = useStore((state) => state.allGruposData)
+
   const userRole = useStore((state) => state.userRol)
+
+  const setUserRol = useStore((state) => state.setUserRol)
+  const dataDocentes = useStore((state) => state.dataDocentes)
 
   const setDataRegistros = useStore((state) => state.setDataRegistros)
   const setAllSedesData = useStore((state) => state.setAllSedesData)
   const setAllGestionsData = useStore((state) => state.setAllGestionsData)
   const setAllGradosData = useStore((state) => state.setAllGradosData)
   const setAllGruposData = useStore((state) => state.setAllGruposData)
+  const setDataDocentes = useStore((state) => state.setDataDocentes)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,11 +36,24 @@ const HomePage = () => {
       setAllGestionsData(result.gestions)
       setAllGradosData(result.grados)
       setAllGruposData(result.grupos)
+      setDataDocentes(result.dataDocentes)
+
     }
 
     fetchData()
-  }, [setDataRegistros])
+  }, [setDataRegistros, setDataDocentes, ])
 
+
+  useEffect(() => {
+    if (session && dataDocentes.length > 0) {
+      const userRol = dataDocentes.find((user) => user.email === session.user.email);
+      if (!userRol) {
+        router.push('/info-register');
+      } else {
+        setUserRol(userRol.rol);
+      }
+    }
+  }, [session, dataDocentes, setUserRol, router]);
 
   return (
     <div>

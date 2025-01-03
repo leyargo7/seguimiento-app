@@ -11,6 +11,7 @@ const useStore = create(
       allGestionsData: [],
       allGradosData: [],
       allGruposData: [],
+      dataDocentes: [],
 
       emailUser:'',
       userRol: '',
@@ -19,6 +20,7 @@ const useStore = create(
       setAllGestionsData: (newData) => set({ allGestionsData: newData }),
       setAllGradosData: (newData) => set({ allGradosData: newData }),
       setAllGruposData: (newData) => set({ allGruposData: newData }),
+      setDataDocentes: (newData) => set({ dataDocentes: newData }),
       
       setEmailUser: (newEmail) => set({ emailUser: newEmail}),
       setUserRol: (newRol) => set({ userRol: newRol})

@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { MdOutlineLogout } from 'react-icons/md'
 import CardDocument from '../../components/CardDocument'
 import ModalMain from '../../components/ModalMain'
+import { signOut } from 'next-auth/react'
 
 function DashboardPage() {
   const [documentUrl, setDocumentUrl] = useState('')

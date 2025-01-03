@@ -5,6 +5,7 @@ import ModalMain from './ModalMain'
 import useStore from '../store/useStore'
 import { useSession } from 'next-auth/react'
 
+
 const HomeMain = () => {
   const [documentUrl, setDocumentUrl] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -27,6 +28,7 @@ const HomeMain = () => {
     setDocumentUrl('')
     setIsModalOpen(false)
   }
+
 
   useEffect(() => {
     if (session) {
@@ -125,7 +127,9 @@ const HomeMain = () => {
               onClick={openDocument}
               grado={user.grado}
               grupo={user.grupo}
+              _id={user._id}
             />
+           
           </div>
         ))}
       </div>

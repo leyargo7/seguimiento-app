@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 const phrasesWithImages = [
   { text: "La evaluación es el puente entre la enseñanza y el aprendizaje, permitiendo identificar fortalezas y áreas de mejora.", image: "/images/evaluation1.jpg" },
@@ -24,14 +25,16 @@ export default function Slideshow() {
   }, []);
 
   return (
-    // <div style={{ textAlign: "center", padding: "20px" }}>
-    <div className="flex flex-col lg:flex-row gap-10 p-10">
-      <img
-        className="w-full max-h-96 object-cover"
+   
+    <div className="flex flex-col items-center justify-center lg:flex-row gap-10 p-3">
+      <Image
+        className="w-6/12 rounded-lg"
+        width={400}
+        height={400}
         src={phrasesWithImages[currentIndex].image}
         alt={`Imagen ${currentIndex + 1}`}
       />
-      <p style={{fontSize: "1.8rem", fontStyle: "italic" }} className="text-center mt-20">
+      <p style={{fontSize: "1.8rem", fontStyle: "italic" }} className="text-center">
         {phrasesWithImages[currentIndex].text}
       </p>
     </div>
