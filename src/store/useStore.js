@@ -13,13 +13,15 @@ const useStore = create(
       allGruposData: [],
 
       emailUser:'',
+      userRol: '',
       setDataRegistros: (newData) => set({ dataRegistros: newData }),
       setAllSedesData: (newData) => set({ allSedesData: newData }),
       setAllGestionsData: (newData) => set({ allGestionsData: newData }),
       setAllGradosData: (newData) => set({ allGradosData: newData }),
       setAllGruposData: (newData) => set({ allGruposData: newData }),
       
-      setEmailUser: (newEmail) => set({ emailUser: newEmail})
+      setEmailUser: (newEmail) => set({ emailUser: newEmail}),
+      setUserRol: (newRol) => set({ userRol: newRol})
     }),
     {
       name: 'my-store-educa', // Nombre de la clave en el almacenamiento local

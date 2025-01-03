@@ -231,6 +231,7 @@ const RegisterPage = () => {
               <option value=""></option>
               <option value="Mañana">Mañana</option>
               <option value="Tarde">Tarde</option>
+              <option value="Completa">Completa</option>
             </select>
 
             {/* Selección de grado */}

@@ -15,6 +15,8 @@ const HomeMain = () => {
   const { data: session } = useSession()
   const dataRegistros = useStore((state) => state.dataRegistros)
   const allGestionsData = useStore((state) => state.allGestionsData)
+  const userRol = useStore((state) => state.userRol)
+  const setUserRol = useStore((state) => state.setUserRol)
 
   const openDocument = (url) => {
     setDocumentUrl(url)
@@ -28,6 +30,7 @@ const HomeMain = () => {
 
   useEffect(() => {
     if (session) {
+      
       const filterUsers = dataRegistros.filter(
         (user) =>
           user.email === session.user.email &&
@@ -36,6 +39,16 @@ const HomeMain = () => {
       setUsersFilters(filterUsers)
     }
   }, [session, selectedSubCategory, dataRegistros])
+
+  // requiero otro useEffect para a traves de la session busque en dataRegistros si el rol es admin, el filtro va a traer uno o varios registros con el rol docente o admin, guarda en store userRol solamente el valor de el primer rol encontrado
+  useEffect(() => {
+    if (usersFilters.length > 0) {
+      const userRol = dataRegistros.find((user) => user.email === session.user.email)
+
+      setUserRol(userRol.rol)
+    }
+  }, [usersFilters, session, dataRegistros])
+
 
   const handleGestionClick = (gestionId) => {
     setActiveGestion((prev) => (prev === gestionId ? null : gestionId)) // Alterna entre mostrar u ocultar subcategorías
@@ -106,8 +119,8 @@ const HomeMain = () => {
               sede={user.sede}
               jornada={user.jornada}
               docente={user.docente}
-              title={user.selectedCategory}
-              subtitle={user.selectedSubCategory}
+              selectedCategory={user.selectedCategory}
+              selectedSubCategory={user.selectedSubCategory}
               url={`https://drive.google.com/file/d/${user.linkFileId}/preview`}
               onClick={openDocument}
               grado={user.grado}
