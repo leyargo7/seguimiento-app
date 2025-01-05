@@ -151,6 +151,8 @@ function DashboardPage() {
                   onClick={openDocument}
                   grado={user.grado}
                   grupo={user.grupo}
+                  _id={user._id}
+                  fileName={user.fileName}
                 />
               </div>
             ))}

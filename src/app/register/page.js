@@ -24,6 +24,7 @@ const RegisterPage = () => {
   const [dataGrados, setDataGrados] = useState([])
   const [dataGrupos, setDataGrupos] = useState([])
   const [docentes, setDocentes] = useState([]) // Docentes filtrados
+  const [fileName, setFileName] = useState('')
   const [loadingSedes, setLoadingSedes] = useState(true)
 
   const { data: session } = useSession()
@@ -126,7 +127,8 @@ const RegisterPage = () => {
       !docente ||
       !linkFile ||
       !selectedCategory ||
-      !selectedSubCategory
+      !selectedSubCategory ||
+      !fileName
     ) {
       return alert('Por favor llena todos los campos obligatorios')
     }
@@ -146,7 +148,8 @@ const RegisterPage = () => {
       selectedCategory,
       selectedSubCategory,
       linkFileId: linkFileId[1],
-      email: session.user.email
+      email: session.user.email,
+      fileName
     }
 
     try {
@@ -197,13 +200,13 @@ const RegisterPage = () => {
           </button>
         </div>
       </div>
-      <div className="flex flex-col justify-center items-center h-screen">
+      <div className="flex flex-col justify-center items-center mt-3">
         <h1 className="text-2xl font-bold mb-9">Registra tu evidencia</h1>
 
         {loadingSedes ? (
           <p>Cargando...</p>
         ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-80">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-96 bg-blue-200 p-6 rounded-lg">
             {/* Selección de sede */}
             <label>Sede Educativa:</label>
             <select
@@ -211,6 +214,7 @@ const RegisterPage = () => {
               id="sede"
               value={sede}
               onChange={(e) => setSede(e.target.value)}
+              className='bg-blue-950 text-white p-2 rounded'
             >
               <option value=""></option>
               {dataSedes.map((item, index) => (
@@ -227,6 +231,7 @@ const RegisterPage = () => {
               id="jornada"
               value={jornada}
               onChange={(e) => setJornada(e.target.value)}
+              className='bg-blue-950 text-white p-2 rounded'
             >
               <option value=""></option>
               <option value="Mañana">Mañana</option>
@@ -241,6 +246,7 @@ const RegisterPage = () => {
               id="grado"
               value={grado}
               onChange={(e) => setGrado(e.target.value)}
+              className='bg-blue-950 text-white p-2 rounded'
             >
               <option value=""></option>
               <option value="Transición">Transición</option>
@@ -263,6 +269,7 @@ const RegisterPage = () => {
               id="grupo"
               value={grupo}
               onChange={(e) => setGrupo(e.target.value)}
+              className='bg-blue-950 text-white p-2 rounded'
             >
               <option value=""></option>
               <option value="0-1">0-1</option>
@@ -282,6 +289,8 @@ const RegisterPage = () => {
               id="docente"
               value={docente}
               onChange={(e) => setDocente(e.target.value)}
+              className='bg-blue-950 text-white p-2 rounded'
+              
             >
               <option value=""></option>
               {docentes.map((docente, index) => (
@@ -297,6 +306,7 @@ const RegisterPage = () => {
               id="category"
               onChange={handleCategoryChange}
               value={selectedCategory}
+              className='bg-blue-950 text-white p-2 rounded'
             >
               <option value=""></option>
               {Object.keys(getDynamicOptionsMap()).map((category, index) => (
@@ -314,6 +324,7 @@ const RegisterPage = () => {
                   id="subCategory"
                   value={selectedSubCategory}
                   onChange={(e) => setSelectedSubCategory(e.target.value)}
+                  className='bg-blue-950 text-white p-2 rounded'
                 >
                   <option value=""></option>
                   {subOptions.map((option, index) => (
@@ -331,6 +342,16 @@ const RegisterPage = () => {
               placeholder="Pega el link de tu documento"
               value={linkFile}
               onChange={(e) => setLinkFile(e.target.value)}
+              className='border-2 border-blue-950 rounded p-2 text-black'
+            />
+
+            {/* Nombre del archivo */}
+            <input
+              type="text"
+              placeholder="Nombre del archivo"
+              value={fileName}
+              onChange={(e) => setFileName(e.target.value)}
+              className='border-2 border-blue-950 rounded p-2 text-black'
             />
 
             {/* Botón de envío */}
@@ -344,7 +365,8 @@ const RegisterPage = () => {
                 !docente ||
                 !linkFile ||
                 !selectedCategory ||
-                !selectedSubCategory
+                !selectedSubCategory ||
+                !fileName
                   ? 'bg-gray-400 cursor-not-allowed'
                   : 'bg-blue-500 hover:bg-blue-600 text-white'
               }`}
@@ -356,7 +378,8 @@ const RegisterPage = () => {
                 !docente ||
                 !linkFile ||
                 !selectedCategory ||
-                !selectedSubCategory
+                !selectedSubCategory ||
+                !fileName
               }
             >
               Enviar

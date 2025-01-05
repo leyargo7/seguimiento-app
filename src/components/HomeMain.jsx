@@ -6,6 +6,22 @@ import useStore from '../store/useStore'
 import { useSession } from 'next-auth/react'
 
 
+const fetchFileName = async (fileId, accessToken) => {
+
+  const response = await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}?fields=name`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch file name')
+  }
+
+  const data = await response.json()
+  return data.name
+}
+
 const HomeMain = () => {
   const [documentUrl, setDocumentUrl] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -14,6 +30,8 @@ const HomeMain = () => {
   const [activeGestion, setActiveGestion] = useState(null) // Estado para gestión activa
 
   const { data: session } = useSession()
+
+  
   const dataRegistros = useStore((state) => state.dataRegistros)
   const allGestionsData = useStore((state) => state.allGestionsData)
   const userRol = useStore((state) => state.userRol)
@@ -32,13 +50,15 @@ const HomeMain = () => {
 
   useEffect(() => {
     if (session) {
-      
+
       const filterUsers = dataRegistros.filter(
         (user) =>
           user.email === session.user.email &&
           (selectedSubCategory === '' || user.selectedSubCategory === selectedSubCategory)
       )
       setUsersFilters(filterUsers)
+
+     
     }
   }, [session, selectedSubCategory, dataRegistros])
 
@@ -118,11 +138,13 @@ const HomeMain = () => {
             className="bg-white shadow-lg rounded-lg p-4 hover:shadow-2xl transition-shadow duration-200"
           >
             <CardDocument
+
               sede={user.sede}
               jornada={user.jornada}
               docente={user.docente}
               selectedCategory={user.selectedCategory}
               selectedSubCategory={user.selectedSubCategory}
+              fileName={user.fileName}
               url={`https://drive.google.com/file/d/${user.linkFileId}/preview`}
               onClick={openDocument}
               grado={user.grado}

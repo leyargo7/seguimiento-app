@@ -15,6 +15,7 @@ const CardDocument = ({
   jornada,
   docente,
   _id,
+  fileName
 }) => {
 
   const router = useRouter()
@@ -31,7 +32,7 @@ const CardDocument = ({
     if (response.ok) {
       alert('Datos eliminados exitosamente')
       //window.location.href = '/home'
-      router.push('/home')
+      //router.push('/home')
     } else {
       const error = await response.json()
       alert(`Error: ${error.message}`)
@@ -54,6 +55,7 @@ const CardDocument = ({
   return (
     <>
       <div className="card hover:cursor-pointer" onClick={() => onClick(url)}>
+
         <h3>Sede: {sede}</h3>
         <h3>Jornada: {jornada}</h3>
         <h3>Docente: {docente}</h3>
@@ -62,6 +64,7 @@ const CardDocument = ({
         <p className="bg-blue-200 text-black p-2 rounded">
           {selectedSubCategory}
         </p>
+        <p className='bg-purple-400 text-black p-2 rounded'>{fileName}</p>
         <p>{grado}</p>
       </div>
       <div className="flex justify-between">
