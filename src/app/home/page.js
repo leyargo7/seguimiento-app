@@ -6,12 +6,11 @@ import { MdOutlineLogout } from 'react-icons/md'
 import useStore from '../../store/useStore'
 import { use, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 const HomePage = () => {
-
   const { data: session } = useSession()
   const router = useRouter()
-
 
   const userRol = useStore((state) => state.userRol)
 
@@ -37,30 +36,46 @@ const HomePage = () => {
       setAllGradosData(result.grados)
       setAllGruposData(result.grupos)
       setDataDocentes(result.dataDocentes)
-
     }
 
     fetchData()
-  }, [setDataRegistros, setDataDocentes, ])
-
+  }, [setDataRegistros, setDataDocentes])
 
   useEffect(() => {
     if (session && dataDocentes.length > 0) {
-      const userRol = dataDocentes.find((user) => user.email === session.user.email);
+      const userRol = dataDocentes.find(
+        (user) => user.email === session.user.email
+      )
       if (!userRol) {
-        router.push('/info-register');
+        router.push('/info-register')
       } else {
-        setUserRol(userRol);
+        setUserRol(userRol)
       }
     }
-  }, [session, dataDocentes, setUserRol, router, userRol]);
+  }, [session, dataDocentes, setUserRol, router, userRol])
 
   return (
     <div>
       <div className="flex justify-between p-3 bg-blue-950">
-        <div className='flex gap-6'>
-          <h1 className="place-content-center text-white">App Educa</h1>
-          {userRol.rol === 'admin' && <Link href="/dashboard" className="bg-blue-600 text-white p-2 rounded">Dashboard</Link>}
+        <div className="flex gap-6">
+          <div className='flex gap-3 items-center'>
+            <h1 className="place-content-center text-white">App Educa</h1>
+            <Image
+              className="w-12 rounded-lg"
+              width={500}
+              height={500}
+              src="/images/logo2.jpg"
+              alt="Logo"
+            />
+          </div>
+          {userRol.rol === 'admin' && (
+            <Link
+              href="/dashboard"
+              className="bg-blue-600 text-white p-2 rounded"
+            >
+              Dashboard
+            </Link>
+          )}
         </div>
         <div className="flex gap-6">
           <p className="place-content-center text-white">

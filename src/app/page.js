@@ -9,6 +9,7 @@ import Link from 'next/link'
 import Slideshow from '../components/Slideshow'
 import Footer from '../components/footer'
 import Spinner from '../components/Spinner'
+import Image from 'next/image'
 
 const AppPage = () => {
   const [stateSession, setStateSession] = useState(false)
@@ -32,7 +33,16 @@ const AppPage = () => {
   return (
     <div>
       <div className="flex bg-blue-950 text-white items-center justify-around p-3">
+        <div className="flex gap-3 items-center">
         <h1>App Educa</h1>
+        <Image
+          className="w-12 rounded-lg"
+          width={500}
+          height={500}
+          src="/images/logo2.jpg"
+          alt="Logo"
+        />
+        </div>
         {!stateSession ? (
           <Spinner />
         ) :   session?.user ? (

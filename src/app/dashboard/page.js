@@ -7,6 +7,7 @@ import { MdOutlineLogout } from 'react-icons/md'
 import CardDocument from '../../components/CardDocument'
 import ModalMain from '../../components/ModalMain'
 import { signOut } from 'next-auth/react'
+import Image from 'next/image'
 
 function DashboardPage() {
   const [documentUrl, setDocumentUrl] = useState('')
@@ -91,7 +92,16 @@ function DashboardPage() {
         <>
           <div className="flex justify-between p-3 bg-blue-950">
             <h2 className="place-content-center text-white">
-              <Link href="/home">App Educa</Link>
+              <div className='flex gap-3 items-center'>
+                <Link href="/home">App Educa</Link>
+                <Image
+                  className="w-12 rounded-lg"
+                  width={500}
+                  height={500}
+                  src="/images/logo2.jpg"
+                  alt="Logo"
+                />
+              </div>
             </h2>
             <div className="flex gap-6">
               <button

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { signOut, useSession } from 'next-auth/react'
 import { MdOutlineLogout } from 'react-icons/md'
 import useStore from '../../store/useStore'
+import Image from 'next/image'
 
 const RegisterPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('')
@@ -174,7 +175,16 @@ const RegisterPage = () => {
   return (
     <div>
       <div className="flex justify-between p-3 bg-blue-950">
-        <h2 className="place-content-center text-white">App Educa</h2>
+        <div className="flex gap-3 items-center">
+          <h2 className="place-content-center text-white">App Educa</h2>
+          <Image
+            className="w-12 rounded-lg"
+            width={500}
+            height={500}
+            src="/images/logo2.jpg"
+            alt="Logo"
+          />
+        </div>
         <div className="flex gap-6">
           <Link href="/home" className="bg-blue-600 text-white p-2 rounded">
             Seguimiento Escolar
@@ -201,7 +211,7 @@ const RegisterPage = () => {
         ) : (
           <form
             onSubmit={handleSubmit}
-            className='flex flex-col justify-center items-center gap-3'
+            className="flex flex-col justify-center items-center gap-3"
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-4xl bg-blue-200 p-6 rounded-lg">
               {/* Selección de sede */}
