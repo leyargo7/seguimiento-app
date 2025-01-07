@@ -2,7 +2,7 @@ import React from 'react'
 import { useRouter } from 'next/navigation'
 import useStore from '../store/useStore'
 
-import { FaTrashCanArrowUp } from 'react-icons/fa6'
+import { FaTrashAlt } from 'react-icons/fa'
 
 const CardDocument = ({
   selectedCategory,
@@ -70,7 +70,8 @@ const CardDocument = ({
       <div className="flex justify-between">
         <p>{grupo}</p>
         <button onClick={() => handleDeleteClick(_id)} className="rounded">
-          <FaTrashCanArrowUp size={24} />
+          {/* <FaTrashCanArrowUp size={24} /> */}
+          <FaTrashAlt size={24} />
         </button>
       </div>
     </>

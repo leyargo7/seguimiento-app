@@ -13,7 +13,7 @@ const HomePage = () => {
   const router = useRouter()
 
 
-  const userRole = useStore((state) => state.userRol)
+  const userRol = useStore((state) => state.userRol)
 
   const setUserRol = useStore((state) => state.setUserRol)
   const dataDocentes = useStore((state) => state.dataDocentes)
@@ -50,17 +50,17 @@ const HomePage = () => {
       if (!userRol) {
         router.push('/info-register');
       } else {
-        setUserRol(userRol.rol);
+        setUserRol(userRol);
       }
     }
-  }, [session, dataDocentes, setUserRol, router]);
+  }, [session, dataDocentes, setUserRol, router, userRol]);
 
   return (
     <div>
       <div className="flex justify-between p-3 bg-blue-950">
         <div className='flex gap-6'>
           <h1 className="place-content-center text-white">App Educa</h1>
-          {userRole === 'admin' && <Link href="/dashboard" className="bg-blue-600 text-white p-2 rounded">Dashboard</Link>}
+          {userRol.rol === 'admin' && <Link href="/dashboard" className="bg-blue-600 text-white p-2 rounded">Dashboard</Link>}
         </div>
         <div className="flex gap-6">
           <p className="place-content-center text-white">
