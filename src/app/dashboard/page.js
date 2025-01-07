@@ -37,9 +37,9 @@ function DashboardPage() {
   }
 
   useEffect(() => {
-    if (userRole === 'admin') {
+    if (userRole.rol === 'admin') {
       setValidateLink(true)
-    } else if (userRole === 'docente' || userRole === '') {
+    } else if (userRole.rol === 'docente' || userRole === '') {
       router.push('/home')
     }
   }, [userRole])
