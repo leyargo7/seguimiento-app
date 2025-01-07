@@ -32,26 +32,26 @@ const HomeMain = () => {
   }
 
 
+
   useEffect(() => {
     if (session) {
-
-      const filterUsers = dataRegistros.filter(
-        (user) =>
-          user.email === session.user.email &&
-          (selectedSubCategory === '' || user.selectedSubCategory === selectedSubCategory)
-      )
-      setUsersFilters(filterUsers)
-
-     
-    }
+      const filterUsers = dataRegistros.filter((user) =>
+        user.email === session.user.email &&
+        (selectedSubCategory === '' || user.selectedSubCategory === selectedSubCategory)
+        )
+        setUsersFilters(filterUsers)
+      }
   }, [session, selectedSubCategory, dataRegistros])
 
   // requiero otro useEffect para a traves de la session busque en dataRegistros si el rol es admin, el filtro va a traer uno o varios registros con el rol docente o admin, guarda en store userRol solamente el valor de el primer rol encontrado
   useEffect(() => {
     if (usersFilters.length > 0) {
-      const userRol = dataRegistros.find((user) => user.email === session.user.email)
-
-      setUserRol(userRol.rol)
+      const user = dataRegistros.find((user) => user.email === session.user.email)
+      if (user) {
+        setUserRol(user.rol)
+      } else {
+        setUserRol(null)
+      }
     }
   }, [usersFilters, session, dataRegistros])
 
