@@ -6,22 +6,6 @@ import useStore from '../store/useStore'
 import { useSession } from 'next-auth/react'
 
 
-const fetchFileName = async (fileId, accessToken) => {
-
-  const response = await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}?fields=name`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  })
-
-  if (!response.ok) {
-    throw new Error('Failed to fetch file name')
-  }
-
-  const data = await response.json()
-  return data.name
-}
-
 const HomeMain = () => {
   const [documentUrl, setDocumentUrl] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -132,7 +116,9 @@ const HomeMain = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {usersFilters.map((user) => (
+        {
+          usersFilters.length > 0 ?
+          usersFilters.map((user) => (
           <div
             key={user._id}
             className="bg-white shadow-lg rounded-lg p-4 hover:shadow-2xl transition-shadow duration-200"
@@ -153,7 +139,8 @@ const HomeMain = () => {
             />
            
           </div>
-        ))}
+        )): <p>No hay registros para mostrar</p>
+        }
       </div>
 
       <ModalMain show={isModalOpen} onClose={closeDocument} documentUrl={documentUrl} />
