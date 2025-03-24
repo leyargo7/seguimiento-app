@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { signOut, useSession } from 'next-auth/react'
 import { MdOutlineLogout } from 'react-icons/md'
 import useStore from '../../store/useStore'
-import { use, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
@@ -68,7 +68,7 @@ const HomePage = () => {
               alt="Logo"
             />
           </div>
-          {userRol.rol === 'admin' && (
+          {userRol && userRol.rol === 'admin' && (
             <Link
               href="/dashboard"
               className="bg-blue-600 text-white p-2 rounded"
