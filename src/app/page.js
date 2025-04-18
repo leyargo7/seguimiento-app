@@ -85,7 +85,7 @@ const AppPage = () => {
         <h1 className='text-center font-bold text-4xl'>NACIONAL</h1>
       </div>
 
-      <div className="flex justify-center mb-3">
+      <div className="bg-slate-900 text-white flex justify-center mb-3">
         <Slideshow />
       </div>
 

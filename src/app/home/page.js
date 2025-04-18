@@ -55,7 +55,7 @@ const HomePage = () => {
   }, [session, dataDocentes, setUserRol, router, userRol])
 
   return (
-    <div>
+    <div className='bg-slate-950 text-white h-screen'>
       <div className="flex justify-between p-3 bg-blue-950">
         <div className="flex gap-6">
           <div className='flex gap-3 items-center'>

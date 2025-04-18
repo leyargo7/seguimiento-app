@@ -71,7 +71,7 @@ const HomeMain = () => {
   }
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-6 bg-slate-900 text-white h-auto">
       <div className="mb-6">
         <h2 className="text-lg font-bold mb-2">Filtros</h2>
         <div className="flex flex-wrap gap-4">
@@ -79,14 +79,14 @@ const HomeMain = () => {
             <div key={gestion._id} className="relative">
               <button
                 className={`px-4 py-2 rounded ${
-                  activeGestion === gestion._id ? 'bg-blue-500 text-white' : 'bg-blue-100'
+                  activeGestion === gestion._id ? 'bg-slate-950 text-white' : 'bg-slate-950'
                 } hover:bg-blue-500 hover:text-white transition`}
                 onClick={() => handleGestionClick(gestion._id)}
               >
                 {gestion.gestion}
               </button>
               {activeGestion === gestion._id && (
-                <div className="absolute mt-2 p-2 bg-gray-100 rounded shadow-lg z-10">
+                <div className="absolute mt-2 p-2 bg-red-500 rounded shadow-lg z-10">
                   {gestion.componentes.map((componente) => (
                     <button
                       key={componente}
@@ -115,13 +115,13 @@ const HomeMain = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
         {
           usersFilters.length > 0 ?
           usersFilters.map((user) => (
           <div
             key={user._id}
-            className="bg-white shadow-lg rounded-lg p-4 hover:shadow-2xl transition-shadow duration-200"
+            className="bg-slate-950 rounded-lg p-4"
           >
             <CardDocument
 

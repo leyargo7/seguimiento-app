@@ -87,7 +87,7 @@ function DashboardPage() {
   )
 
   return (
-    <div>
+    <div className='bg-slate-950'>
       {validateLink && (
         <>
           <div className="flex justify-between p-3 bg-blue-950">
@@ -119,7 +119,7 @@ function DashboardPage() {
           </div>
 
           {/* Filtros */}
-          <div className="flex flex-wrap gap-4 p-4 bg-gray-100">
+          <div className="flex flex-wrap gap-4 p-4 bg-slate-900">
             {Object.keys(filters).map((filter) => (
               <select
                 key={filter}
@@ -145,11 +145,11 @@ function DashboardPage() {
           </div>
 
           {/* Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 mt-6">
             {filteredData.map((user) => (
               <div
                 key={user._id}
-                className="bg-white shadow-lg rounded-lg p-4 hover:shadow-2xl transition-shadow duration-200"
+                className="bg-slate-900 text-white rounded-lg p-4 m-2"
               >
                 <CardDocument
                   sede={user.sede}
