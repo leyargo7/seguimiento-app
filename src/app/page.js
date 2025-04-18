@@ -31,7 +31,7 @@ const AppPage = () => {
   }, [session])
 
   return (
-    <div>
+    <div className='bg-slate-950'>
       <div className="flex bg-blue-950 text-white items-center justify-around p-3">
         <div className="flex gap-3 items-center">
         <h1>App Educa</h1>
