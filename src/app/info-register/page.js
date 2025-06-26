@@ -37,17 +37,17 @@ const InfoRegisterPage = () => {
         </div>
       </div>
       <div className='flex flex-col justify-center items-center pt-20'>
-        <h1 className='text-2xl font-bold mb-9'>
+        <h1 className='text-2xl font-bold mb-9 text-white'>
           Tu correo aún no está registrado para comenzar a subir tus evidencias
         </h1>
-        <h3 className='text-2xl font-bold mb-9'>
+        <h3 className='text-2xl font-bold mb-9 text-white'>
           Por favor, ponte en contacto con el Coordinador Bayardo y solicita
-          la inscripción de tu correo
+          la validación para acceder a la plataforma
         </h3>
 
         <button className="bg-green-500 text-white p-2 rounded">
           <Link
-            href="https://wa.me/573206923015"
+            href="https://wa.me/573209623015"
             className="flex items-center gap-2"
             target="_blank"
           >
@@ -64,9 +64,9 @@ const InfoRegisterPage = () => {
           </Link>
         </button>
 
-        <h3 className='text-2xl font-bold mt-20'>
+        <h3 className='text-2xl font-bold mt-20 text-white'>
           En caso que no dispongas de whatsapp, puedes enviar un correo a la
-          dirección bayardo.bayardo@gmail.com
+          dirección bayardo06@hotmail.com
         </h3>
       </div>
     </div>

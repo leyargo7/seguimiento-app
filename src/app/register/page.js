@@ -204,7 +204,7 @@ const RegisterPage = () => {
         </div>
       </div>
       <div className="flex flex-col justify-center items-center mt-3">
-        <h1 className="text-2xl font-bold mb-9">Registra tu evidencia</h1>
+        <h1 className="text-2xl font-bold mb-9 text-white">Registra tu evidencia</h1>
 
         {loadingSedes ? (
           <p>Cargando...</p>
@@ -247,6 +247,8 @@ const RegisterPage = () => {
                   <option value="Mañana">Mañana</option>
                   <option value="Tarde">Tarde</option>
                   <option value="Completa">Completa</option>
+                  <option value="Mañana y Tarde">Mañana y Tarde</option>
+                  <option value="Nocturna">Nocturna</option>
                 </select>
               </div>
 

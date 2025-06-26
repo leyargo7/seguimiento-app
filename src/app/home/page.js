@@ -54,6 +54,7 @@ const HomePage = () => {
     }
   }, [session, dataDocentes, setUserRol, router, userRol])
 
+
   return (
     <div className='bg-slate-950 text-white h-screen'>
       <div className="flex justify-between p-3 bg-blue-950">
@@ -68,7 +69,8 @@ const HomePage = () => {
               alt="Logo"
             />
           </div>
-          {userRol && userRol.rol === 'admin' && (
+          {/* {userRol && userRol.rol === 'admin' || userRol && userRol.rol === 'root' && ( */}
+          {['admin', 'root'].includes(userRol?.rol) && (
             <Link
               href="/dashboard"
               className="bg-blue-600 text-white p-2 rounded"
@@ -79,7 +81,7 @@ const HomePage = () => {
         </div>
         <div className="flex gap-6">
           <p className="place-content-center text-white">
-            Hola, {session?.user?.name}
+            Hola {userRol.rol}: {session?.user?.name}
           </p>
           <Link href="/register" className="bg-blue-600 text-white p-2 rounded">
             Registrar Evidencia

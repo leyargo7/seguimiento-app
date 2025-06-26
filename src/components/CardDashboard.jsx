@@ -4,7 +4,7 @@ import useStore from "../store/useStore";
 
 import { FaTrashAlt } from "react-icons/fa";
 
-const CardDocument = ({
+const CardDashboard = ({
   selectedCategory,
   selectedSubCategory,
   url,
@@ -55,7 +55,6 @@ const CardDocument = ({
     }
   };
 
-  
   return (
     <>
       <div
@@ -85,19 +84,23 @@ const CardDocument = ({
           <p>{grupo}</p>
 
         
-          <button
-            onClick={(e) => {
-              e.stopPropagation(); // Previene que el click active el onClick del card
-              handleDeleteClick(_id);
-            }}
-            className="rounded hover:text-red-600"
-          >
-            <FaTrashAlt size={24} />
-          </button>
+          {
+            dataRolUser.rol === 'root' && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation(); // Previene que el click active el onClick del card
+                  handleDeleteClick(_id);
+                }}
+                className="rounded hover:text-red-600"
+              >
+                <FaTrashAlt size={24} />
+              </button>
+            )
+          }
         </div>
       </div>
     </>
   );
 };
 
-export default CardDocument;
+export default CardDashboard;
