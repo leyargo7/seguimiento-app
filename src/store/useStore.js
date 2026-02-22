@@ -54,8 +54,10 @@ const useStore = create(
 
       // --- NUEVO: Estado de Carga ---
       isLoading: false,
+      lastSyncTime: null,
 
       // --- SETTERS MANUALES ---
+      setLastSyncTime: (time) => set({ lastSyncTime: time }),
       setDataRegistros: (newData) => set({ dataRegistros: newData }),
       setAllSedesData: (newData) => set({ allSedesData: newData }),
       setAllGestionsData: (newData) => set({ allGestionsData: newData }),
